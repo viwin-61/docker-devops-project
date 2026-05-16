@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  digital-team-app:
+    image: digital-team:v1
+    container_name: digital-team-compose
+    ports:
+      - "8083:80"
+    volumes:
+      - shared_volume:/data
+    networks:
+      - shared_network
+
+  journey-app:
+    image: journey:v1
+    container_name: journey-compose
+    ports:
+      - "8084:80"
+    volumes:
+      - shared_volume:/data
+    networks:
+      - shared_network
+
+  ubuntu-server:
+    image: ubuntu:latest
+    container_name: ubuntu-compose
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    volumes:
+      - shared_volume:/data
+    networks:
+      - shared_network
+
+volumes:
+  shared_volume:
+
+networks:
+  shared_network:
